@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package srv;
+
+service ParserService {
+    rpc ParserChapters(ChapterRequest) returns (ChapterResponse) {}
+}
+
+//标注+类型+属性名+属性顺序号+[默认值]
+message ChapterRequest {
+    string link = 1; //
+}
+message ChapterResponse {
+     message Chapter {
+        string title = 1; //章节名
+        int32  index = 2; //章节索引
+        string contentsLink = 3;  //内容链接
+    };
+    repeated Chapter chapters = 1;
+}

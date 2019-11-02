@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package srv;
+
+// 书籍服务
+service BookService {
+    // 获取书籍信息服务
+    rpc GetBookInfo(BookRequest) returns (BookResponse) {}
+    // 搜索书籍
+    rpc SearchBookList(SearchBookRequest) returns (SearchBookResponse) {}
+}
+//标注+类型+属性名+属性顺序号+[默认值]
+
+//获取书籍信息
+message BookRequest {
+    string link = 1; //
+}
+message BookResponse {
+    message Book {
+        string title = 1; //书籍名称
+        string author = 2; //作者
+        string cover = 3; //封面图
+        string status = 4; //状态
+        string detail = 5; //书籍详情
+        string link = 6;   //章节链接
+    };
+    Book book = 1; //
+}
+
+//搜索书籍服务
+message SearchBookRequest {
+    string keyword = 1;
+}
+message SearchBookResponse {
+    message Book {
+            string title = 1; //书籍名称
+            string author = 2; //作者
+            string cover = 3; //封面图
+            string status = 4; //状态
+            string detail = 5; //书籍详情
+            string link = 6;   //章节链接
+    };
+    repeated Book books = 1; //
+}
