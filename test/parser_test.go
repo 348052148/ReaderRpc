@@ -2,7 +2,7 @@ package test
 
 import (
 	"testing"
-	"test/ReadRpc/parser"
+	"ReadRpc/parser"
 	"fmt"
 	url2 "net/url"
 )
