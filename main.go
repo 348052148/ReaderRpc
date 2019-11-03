@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	lis, err := net.Listen("tcp", ":8088")  //监听所有网卡8028端口的TCP连接
+	lis, err := net.Listen("tcp", ":9001")  //监听所有网卡8028端口的TCP连接
 	if err != nil {
 		log.Fatalf("监听失败: %v", err)
 	}
