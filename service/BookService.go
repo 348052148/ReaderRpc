@@ -2,10 +2,10 @@ package service
 
 import (
 	"context"
-	"test/ReadRpc/parser"
+	"ReadRpc/parser"
 	"fmt"
 	url2 "net/url"
-	"test/ReadRpc/srv/protoc"
+	"ReadRpc/srv/protoc"
 )
 
 type BookService struct {

@@ -5,8 +5,8 @@ import (
 	"log"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
-	"test/ReadRpc/service"
-	"test/ReadRpc/srv/protoc"
+	"ReadRpc/service"
+	"ReadRpc/srv/protoc"
 )
 
 func main() {

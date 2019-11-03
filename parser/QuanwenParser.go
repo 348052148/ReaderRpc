@@ -6,11 +6,11 @@ import (
 	"golang.org/x/text/transform"
 	"golang.org/x/text/encoding/simplifiedchinese"
 	"io"
-	"test/gopanc/entitys"
 	"time"
 	//"test/gopanc/engine"
 	"test/gopanc/msg"
 	"fmt"
+	"ReadRpc/entitys"
 )
 
 type QuanwenParser struct {

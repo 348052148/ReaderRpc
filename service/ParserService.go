@@ -1,10 +1,10 @@
 package service
 
 import (
-	"test/ReadRpc/srv/protoc"
-	"test/gopanc/parser"
+	"ReadRpc/srv/protoc"
 	"context"
 	"fmt"
+	"ReadRpc/parser"
 )
 
 type ParserService struct {
