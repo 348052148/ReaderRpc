@@ -50,3 +50,9 @@ func TestParserChapters(t *testing.T)  {
 
 	fmt.Println(chapters)
 }
+
+func TestParserChapterContents(t *testing.T)  {
+	zaduParser := &parser.ZaduParser{}
+	c,_:=zaduParser.ParserChapterContents("https://www.zaduw.com/0/583/354985.html")
+	fmt.Println(c)
+}

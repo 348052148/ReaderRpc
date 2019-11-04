@@ -166,31 +166,122 @@ func (m *ChapterResponse_Chapter) GetContentsLink() string {
 	return ""
 }
 
+type ChapterContentRequest struct {
+	Link                 string   `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
+	Source               string   `protobuf:"bytes,2,opt,name=source,proto3" json:"source,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ChapterContentRequest) Reset()         { *m = ChapterContentRequest{} }
+func (m *ChapterContentRequest) String() string { return proto.CompactTextString(m) }
+func (*ChapterContentRequest) ProtoMessage()    {}
+func (*ChapterContentRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f162124cde3fd4d1, []int{2}
+}
+
+func (m *ChapterContentRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ChapterContentRequest.Unmarshal(m, b)
+}
+func (m *ChapterContentRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ChapterContentRequest.Marshal(b, m, deterministic)
+}
+func (m *ChapterContentRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ChapterContentRequest.Merge(m, src)
+}
+func (m *ChapterContentRequest) XXX_Size() int {
+	return xxx_messageInfo_ChapterContentRequest.Size(m)
+}
+func (m *ChapterContentRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ChapterContentRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ChapterContentRequest proto.InternalMessageInfo
+
+func (m *ChapterContentRequest) GetLink() string {
+	if m != nil {
+		return m.Link
+	}
+	return ""
+}
+
+func (m *ChapterContentRequest) GetSource() string {
+	if m != nil {
+		return m.Source
+	}
+	return ""
+}
+
+type ChapterContentResponse struct {
+	Contents             string   `protobuf:"bytes,1,opt,name=contents,proto3" json:"contents,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ChapterContentResponse) Reset()         { *m = ChapterContentResponse{} }
+func (m *ChapterContentResponse) String() string { return proto.CompactTextString(m) }
+func (*ChapterContentResponse) ProtoMessage()    {}
+func (*ChapterContentResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_f162124cde3fd4d1, []int{3}
+}
+
+func (m *ChapterContentResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ChapterContentResponse.Unmarshal(m, b)
+}
+func (m *ChapterContentResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ChapterContentResponse.Marshal(b, m, deterministic)
+}
+func (m *ChapterContentResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ChapterContentResponse.Merge(m, src)
+}
+func (m *ChapterContentResponse) XXX_Size() int {
+	return xxx_messageInfo_ChapterContentResponse.Size(m)
+}
+func (m *ChapterContentResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ChapterContentResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ChapterContentResponse proto.InternalMessageInfo
+
+func (m *ChapterContentResponse) GetContents() string {
+	if m != nil {
+		return m.Contents
+	}
+	return ""
+}
+
 func init() {
 	proto.RegisterType((*ChapterRequest)(nil), "srv.ChapterRequest")
 	proto.RegisterType((*ChapterResponse)(nil), "srv.ChapterResponse")
 	proto.RegisterType((*ChapterResponse_Chapter)(nil), "srv.ChapterResponse.Chapter")
+	proto.RegisterType((*ChapterContentRequest)(nil), "srv.ChapterContentRequest")
+	proto.RegisterType((*ChapterContentResponse)(nil), "srv.ChapterContentResponse")
 }
 
 func init() { proto.RegisterFile("protoc/ParserService.protoc", fileDescriptor_f162124cde3fd4d1) }
 
 var fileDescriptor_f162124cde3fd4d1 = []byte{
-	// 228 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x6c, 0x90, 0x41, 0x4b, 0x03, 0x31,
-	0x10, 0x85, 0x8d, 0x6b, 0xab, 0x8e, 0x5a, 0x61, 0x2c, 0xb2, 0x54, 0x0f, 0x25, 0xa7, 0x9e, 0x56,
-	0xa8, 0x17, 0x0f, 0x7a, 0xf2, 0x2a, 0x22, 0xeb, 0xc9, 0x63, 0x8d, 0x03, 0x06, 0x4b, 0xb2, 0xce,
-	0x64, 0x17, 0x7f, 0x91, 0xbf, 0x53, 0x36, 0x09, 0x0b, 0x2b, 0xbd, 0xe5, 0x7d, 0xcc, 0x23, 0x1f,
-	0x0f, 0xae, 0x1a, 0xf6, 0xc1, 0x9b, 0x9b, 0x97, 0x0d, 0x0b, 0xf1, 0x2b, 0x71, 0x67, 0x0d, 0x55,
-	0x09, 0x62, 0x21, 0xdc, 0xe9, 0x7b, 0x98, 0x3d, 0x7e, 0x6e, 0x9a, 0x40, 0x5c, 0xd3, 0x77, 0x4b,
-	0x12, 0x10, 0xe1, 0x60, 0x6b, 0xdd, 0x57, 0xa9, 0x96, 0x6a, 0x75, 0x5c, 0xc7, 0x37, 0x5e, 0xc2,
-	0x54, 0x7c, 0xcb, 0x86, 0xca, 0xfd, 0x48, 0x73, 0xd2, 0xbf, 0x0a, 0xce, 0x87, 0xba, 0x34, 0xde,
-	0x09, 0xe1, 0x1d, 0x1c, 0x99, 0x84, 0xa4, 0x54, 0xcb, 0x62, 0x75, 0xb2, 0xbe, 0xae, 0x84, 0xbb,
-	0xea, 0xdf, 0xdd, 0x90, 0x87, 0xeb, 0xc5, 0x1b, 0x1c, 0x66, 0x88, 0x73, 0x98, 0x04, 0x1b, 0xb6,
-	0x94, 0x2d, 0x52, 0xe8, 0xa9, 0x75, 0x1f, 0xf4, 0x13, 0x2d, 0x26, 0x75, 0x0a, 0xa8, 0xe1, 0xd4,
-	0x78, 0x17, 0xc8, 0x05, 0x79, 0xea, 0xc5, 0x8b, 0x58, 0x19, 0xb1, 0xf5, 0x33, 0x9c, 0x8d, 0x36,
-	0xc0, 0x07, 0x98, 0x25, 0x90, 0x7f, 0x14, 0xbc, 0x18, 0x5b, 0xc6, 0x31, 0x16, 0xf3, 0x5d, 0xea,
-	0x7a, 0xef, 0x7d, 0x1a, 0x37, 0xbc, 0xfd, 0x0b, 0x00, 0x00, 0xff, 0xff, 0xed, 0x20, 0x6d, 0xb9,
-	0x61, 0x01, 0x00, 0x00,
+	// 275 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x92, 0x31, 0x4f, 0xc3, 0x30,
+	0x10, 0x85, 0x09, 0xa1, 0xa5, 0x1c, 0x50, 0xa4, 0xa3, 0xad, 0xa2, 0x94, 0xa1, 0xf2, 0xd4, 0x29,
+	0x48, 0x85, 0x81, 0x01, 0xa6, 0xac, 0x0c, 0x28, 0x4c, 0x8c, 0xc5, 0x9c, 0x44, 0x44, 0x65, 0x07,
+	0x9f, 0x1b, 0xf1, 0x7b, 0x18, 0xf8, 0x9d, 0xa8, 0xb6, 0x1b, 0xe1, 0xaa, 0x13, 0x5b, 0xde, 0x97,
+	0x7b, 0x2f, 0xef, 0x4e, 0x81, 0x69, 0x63, 0xb4, 0xd5, 0xf2, 0xfa, 0x69, 0x69, 0x98, 0xcc, 0x33,
+	0x99, 0xb6, 0x96, 0x54, 0x78, 0x88, 0x29, 0x9b, 0x56, 0xdc, 0xc3, 0xb0, 0x7c, 0x5f, 0x36, 0x96,
+	0x4c, 0x45, 0x9f, 0x6b, 0x62, 0x8b, 0x08, 0x47, 0xab, 0x5a, 0x7d, 0x64, 0xc9, 0x2c, 0x99, 0x9f,
+	0x54, 0xee, 0x19, 0x27, 0xd0, 0x67, 0xbd, 0x36, 0x92, 0xb2, 0x43, 0x47, 0x83, 0x12, 0x3f, 0x09,
+	0x5c, 0x74, 0x76, 0x6e, 0xb4, 0x62, 0xc2, 0x3b, 0x18, 0x48, 0x8f, 0x38, 0x4b, 0x66, 0xe9, 0xfc,
+	0x74, 0x71, 0x55, 0xb0, 0x69, 0x8b, 0x9d, 0xb9, 0x4e, 0x77, 0xd3, 0xf9, 0x0b, 0x1c, 0x07, 0x88,
+	0x23, 0xe8, 0xd9, 0xda, 0xae, 0x28, 0xb4, 0xf0, 0x62, 0x43, 0x6b, 0xf5, 0x46, 0x5f, 0xae, 0x45,
+	0xaf, 0xf2, 0x02, 0x05, 0x9c, 0x49, 0xad, 0x2c, 0x29, 0xcb, 0x8f, 0x9b, 0xe2, 0xa9, 0xb3, 0x44,
+	0x4c, 0x94, 0x30, 0x0e, 0xd1, 0xa5, 0xc7, 0xff, 0xd9, 0xf6, 0x16, 0x26, 0xbb, 0x21, 0x61, 0xe7,
+	0x1c, 0x06, 0xdb, 0xcf, 0x85, 0xa4, 0x4e, 0x2f, 0xbe, 0x13, 0x38, 0x8f, 0xee, 0x8f, 0x0f, 0x30,
+	0xf4, 0x20, 0xa4, 0x31, 0x5e, 0xc6, 0x17, 0x72, 0xd5, 0xf2, 0xd1, 0xbe, 0xb3, 0x89, 0x03, 0xac,
+	0x60, 0x1c, 0xd9, 0x43, 0x19, 0xc6, 0xfc, 0xaf, 0x21, 0xde, 0x33, 0x9f, 0xee, 0x7d, 0xb7, 0xcd,
+	0x7c, 0xed, 0xbb, 0x7f, 0xe2, 0xe6, 0x37, 0x00, 0x00, 0xff, 0xff, 0x02, 0x73, 0x94, 0xa1, 0x31,
+	0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -206,6 +297,7 @@ const _ = grpc.SupportPackageIsVersion4
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type ParserServiceClient interface {
 	ParserChapters(ctx context.Context, in *ChapterRequest, opts ...grpc.CallOption) (*ChapterResponse, error)
+	ParserChapterContents(ctx context.Context, in *ChapterContentRequest, opts ...grpc.CallOption) (*ChapterContentResponse, error)
 }
 
 type parserServiceClient struct {
@@ -225,9 +317,19 @@ func (c *parserServiceClient) ParserChapters(ctx context.Context, in *ChapterReq
 	return out, nil
 }
 
+func (c *parserServiceClient) ParserChapterContents(ctx context.Context, in *ChapterContentRequest, opts ...grpc.CallOption) (*ChapterContentResponse, error) {
+	out := new(ChapterContentResponse)
+	err := c.cc.Invoke(ctx, "/srv.ParserService/ParserChapterContents", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ParserServiceServer is the server API for ParserService service.
 type ParserServiceServer interface {
 	ParserChapters(context.Context, *ChapterRequest) (*ChapterResponse, error)
+	ParserChapterContents(context.Context, *ChapterContentRequest) (*ChapterContentResponse, error)
 }
 
 // UnimplementedParserServiceServer can be embedded to have forward compatible implementations.
@@ -236,6 +338,9 @@ type UnimplementedParserServiceServer struct {
 
 func (*UnimplementedParserServiceServer) ParserChapters(ctx context.Context, req *ChapterRequest) (*ChapterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ParserChapters not implemented")
+}
+func (*UnimplementedParserServiceServer) ParserChapterContents(ctx context.Context, req *ChapterContentRequest) (*ChapterContentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ParserChapterContents not implemented")
 }
 
 func RegisterParserServiceServer(s *grpc.Server, srv ParserServiceServer) {
@@ -260,6 +365,24 @@ func _ParserService_ParserChapters_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ParserService_ParserChapterContents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ChapterContentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ParserServiceServer).ParserChapterContents(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/srv.ParserService/ParserChapterContents",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ParserServiceServer).ParserChapterContents(ctx, req.(*ChapterContentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _ParserService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "srv.ParserService",
 	HandlerType: (*ParserServiceServer)(nil),
@@ -267,6 +390,10 @@ var _ParserService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ParserChapters",
 			Handler:    _ParserService_ParserChapters_Handler,
+		},
+		{
+			MethodName: "ParserChapterContents",
+			Handler:    _ParserService_ParserChapterContents_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

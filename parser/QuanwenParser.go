@@ -183,3 +183,7 @@ func (parser *QuanwenParser)ParserSearchBooks(url string) ([]entitys.BookInfo, e
 	})
 	return BookList, nil
 }
+
+func (parser *QuanwenParser)ParserChapterContents(url string) (string, error) {
+	return "", nil
+}

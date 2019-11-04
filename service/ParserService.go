@@ -32,3 +32,19 @@ func (parserService *ParserService) ParserChapters(cxt context.Context, req *srv
 	}
 	return &srv.ChapterResponse{Chapters: chapterList}, nil
 }
+
+func (parserService *ParserService) ParserChapterContents(cxt context.Context, req *srv.ChapterContentRequest)(*srv.ChapterContentResponse, error)  {
+	var parserEngin parser.Parser
+	fmt.Println(req.Link, req.Source)
+	if (req.Source == "quanwen") {
+		parserEngin = parser.NewQuanwenParser()
+	}else if (req.Source == "zadu") {
+		parserEngin = parser.NewZaduParser()
+	}else {
+		parserEngin = parser.NewQuanwenParser()
+	}
+
+	contents, _ := parserEngin.ParserChapterContents(req.Link)
+
+	return &srv.ChapterContentResponse{Contents:contents}, nil
+}

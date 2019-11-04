@@ -9,4 +9,6 @@ type Parser interface {
 	ParserBookInfo(url string, classifyId int) (entitys.BookInfo, error)
 
 	ParserChapters(url string, bookId string) ([]entitys.Chapter, error)
+
+	ParserChapterContents(url string) (string, error)
 }

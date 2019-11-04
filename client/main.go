@@ -21,11 +21,11 @@ func main() {
 
 	// 模拟请求数据
 	//link := "https://www.zaduw.com/1/1349/"
-	link := "http://www.quanshuwang.com/book/181/181371"
-	res, err := parserClient.ParserChapters(context.Background(),&srv.ChapterRequest{Link:link,Source:"quanwen"})
+	link := "https://www.zaduw.com/0/583/354985.html"
+	res, err := parserClient.ParserChapterContents(context.Background(),&srv.ChapterContentRequest{Link:link,Source:"zadu"})
 	//res, err := bookClient.GetBookChapterList(context.Background(), &book.ChapterRequest{Link: "http://www.quanshuwang.com/book/177/177605"})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
-	log.Printf("服务端响应: %v", res.Chapters)
+	log.Printf("服务端响应: %v", res.Contents)
 }

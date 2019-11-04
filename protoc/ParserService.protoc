@@ -4,6 +4,8 @@ package srv;
 
 service ParserService {
     rpc ParserChapters(ChapterRequest) returns (ChapterResponse) {}
+
+    rpc ParserChapterContents(ChapterContentRequest) returns(ChapterContentResponse){}
 }
 
 //标注+类型+属性名+属性顺序号+[默认值]
@@ -18,4 +20,12 @@ message ChapterResponse {
         string contentsLink = 3;  //内容链接
     };
     repeated Chapter chapters = 1;
+}
+
+message ChapterContentRequest {
+    string link = 1;   //链接
+    string source = 2; //源站
+}
+message ChapterContentResponse {
+    string contents = 1; //内容
 }

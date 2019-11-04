@@ -148,3 +148,22 @@ func (parser *ZaduParser) ParserChapters(url string, bookId string) ([]entitys.C
 	})
 	return ChapterList, nil
 }
+
+func  (parser *ZaduParser) ParserChapterContents(url string) (string, error)  {
+	//yd_text2
+	body, reqErr := parser.Request(url)
+	//defer body.Close()
+	if reqErr != nil {
+		fmt.Println("Chapter TIME OUT" + url)
+		return "", reqErr
+	}
+	//defer body.Close()
+	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
+	doc, err := goquery.NewDocumentFromReader(bytes)
+	if err != nil {
+		fmt.Println("Chapter BAN TIME OUT" + url)
+		return "", err
+	}
+	contents := doc.Find(".novel .yd_text2").Text()
+	return contents, nil
+}
