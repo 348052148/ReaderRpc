@@ -8,7 +8,8 @@ service ParserService {
 
 //标注+类型+属性名+属性顺序号+[默认值]
 message ChapterRequest {
-    string link = 1; //
+    string link = 1;   //链接
+    string source = 2; //源站
 }
 message ChapterResponse {
      message Chapter {

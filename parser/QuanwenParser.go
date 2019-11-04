@@ -11,6 +11,7 @@ import (
 	"ReadRpc/msg"
 	"fmt"
 	"ReadRpc/entitys"
+	"strings"
 )
 
 type QuanwenParser struct {
@@ -97,10 +98,10 @@ func (parser *QuanwenParser) ParserBookInfo(url string, classifyId int) (entitys
 	var author,status string
 	doc.Find(".author .bookDetail dl").Each(func(i int, s *goquery.Selection) {
 		if i == 0 {
-			status = s.Find("dd").Text()
+			status = strings.TrimSpace(s.Find("dd").Text())
 		}
 		if i == 1 {
-			author = s.Find("dd").Text()
+			author = strings.TrimSpace(s.Find("dd").Text())
 		}
 	})
 	//
@@ -108,7 +109,7 @@ func (parser *QuanwenParser) ParserBookInfo(url string, classifyId int) (entitys
 		fmt.Println("BOOK Parser Faill : " + url)
 	}
 	return entitys.BookInfo{
-		BookId:entitys.Md5(title+author+status),
+		BookId:entitys.Md5(title+author),
 		Title:       title,
 		Author:      author,
 		Detail:      detail,
