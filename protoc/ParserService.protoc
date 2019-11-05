@@ -18,6 +18,7 @@ message ChapterResponse {
         string title = 1; //章节名
         int32  index = 2; //章节索引
         string contentsLink = 3;  //内容链接
+        string source = 4; //源站
     };
     repeated Chapter chapters = 1;
 }

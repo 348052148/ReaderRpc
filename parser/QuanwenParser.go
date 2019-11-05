@@ -185,5 +185,19 @@ func (parser *QuanwenParser)ParserSearchBooks(url string) ([]entitys.BookInfo, e
 }
 
 func (parser *QuanwenParser)ParserChapterContents(url string) (string, error) {
-	return "", nil
+	body, reqErr := parser.Request(url)
+	//defer body.Close()
+	if reqErr != nil {
+		fmt.Println("Chapter TIME OUT" + url)
+		return "", reqErr
+	}
+	//defer body.Close()
+	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
+	doc, err := goquery.NewDocumentFromReader(bytes)
+	if err != nil {
+		fmt.Println("Chapter BAN TIME OUT" + url)
+		return "", err
+	}
+	contents := doc.Find(".bookInfo .mainContenr").Text()
+	return contents, nil
 }

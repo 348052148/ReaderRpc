@@ -12,15 +12,8 @@ type ParserService struct {
 
 // 获取书籍章节列表
 func (parserService *ParserService) ParserChapters(cxt context.Context, req *srv.ChapterRequest) (*srv.ChapterResponse, error) {
-	var parserEngin parser.Parser
-	fmt.Println(req.Link, req.Source)
-	if (req.Source == "quanwen") {
-		parserEngin = parser.NewQuanwenParser()
-	}else if (req.Source == "zadu") {
-		parserEngin = parser.NewZaduParser()
-	}else {
-		parserEngin = parser.NewQuanwenParser()
-	}
+	fmt.Println("chapters", req.Link, req.Source)
+	parserEngin := parserService.BuilderParser(req.Source)
 	chapters, _ := parserEngin.ParserChapters(req.Link, "1")
 	var chapterList []*srv.ChapterResponse_Chapter
 	for _, chapter := range chapters {
@@ -28,23 +21,28 @@ func (parserService *ParserService) ParserChapters(cxt context.Context, req *srv
 			Title: chapter.Title,
 			Index: int32(chapter.Index),
 			ContentsLink:  chapter.ContentLink,
+			Source:req.Source,
 		})
 	}
 	return &srv.ChapterResponse{Chapters: chapterList}, nil
 }
 
 func (parserService *ParserService) ParserChapterContents(cxt context.Context, req *srv.ChapterContentRequest)(*srv.ChapterContentResponse, error)  {
-	var parserEngin parser.Parser
-	fmt.Println(req.Link, req.Source)
-	if (req.Source == "quanwen") {
-		parserEngin = parser.NewQuanwenParser()
-	}else if (req.Source == "zadu") {
-		parserEngin = parser.NewZaduParser()
-	}else {
-		parserEngin = parser.NewQuanwenParser()
-	}
-
+	fmt.Println("contents", req.Link, req.Source)
+	parserEngin := parserService.BuilderParser(req.Source)
 	contents, _ := parserEngin.ParserChapterContents(req.Link)
 
 	return &srv.ChapterContentResponse{Contents:contents}, nil
+}
+
+func (parserService *ParserService)BuilderParser(flag string) parser.Parser  {
+	var parserEngin parser.Parser
+	if flag == "quanwen" {
+		parserEngin = parser.NewQuanwenParser()
+	}else if flag == "zadu" {
+		parserEngin = parser.NewZaduParser()
+	}else if flag == "xbiquge" {
+		parserEngin = parser.NewXbiqugeParser()
+	}
+	return parserEngin
 }

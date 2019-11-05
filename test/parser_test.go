@@ -56,3 +56,34 @@ func TestParserChapterContents(t *testing.T)  {
 	c,_:=zaduParser.ParserChapterContents("https://www.zaduw.com/0/583/354985.html")
 	fmt.Println(c)
 }
+
+func TestParserQuanwenContents(t *testing.T)  {
+	quanWenParser := &parser.QuanwenParser{}
+	c,_:=quanWenParser.ParserChapterContents("http://www.quanshuwang.com/book/136/136668/36413373.html")
+	fmt.Println(c)
+}
+
+func TestXBiqugeParser(t *testing.T)  {
+	xbiqugeParser := parser.NewXbiqugeParser();
+	classifys,_ := xbiqugeParser.ParserClassflysBooks("http://www.xbiquge.la/fenlei/1_1.html")
+	fmt.Println(classifys)
+}
+
+func TestXBiqugeParserBook(t *testing.T)  {
+	//http://www.xbiquge.la/32/32391/
+	xbiqugeParser := parser.NewXbiqugeParser();
+	bookinfo,_ := xbiqugeParser.ParserBookInfo("http://www.xbiquge.la/32/32391/", 1)
+	fmt.Println(bookinfo)
+}
+
+func TestXBiqugeParserChapters(t *testing.T)  {
+	xbiqugeParser := parser.NewXbiqugeParser();
+	chapters,_ := xbiqugeParser.ParserChapters("http://www.xbiquge.la/32/32391/", "")
+	fmt.Println(chapters)
+}
+
+func TestXBiqugeParserChapterContents(t *testing.T)  {
+	xbiqugeParser := parser.NewXbiqugeParser();
+	contents,_ := xbiqugeParser.ParserChapterContents("http://www.xbiquge.la/32/32391/15246708.html")
+	fmt.Println(contents)
+}

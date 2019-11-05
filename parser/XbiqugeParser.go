@@ -1,8 +1,6 @@
 package parser
 
 import (
-	"golang.org/x/text/transform"
-	"golang.org/x/text/encoding/simplifiedchinese"
 	"github.com/PuerkitoBio/goquery"
 	"ReadRpc/entitys"
 	"io"
@@ -13,19 +11,19 @@ import (
 	"strings"
 )
 
-type ZaduParser struct {
+type XbiqugeParser struct {
 	linkSet *msg.LinkSet
 }
 
-func NewZaduParser() *ZaduParser {
-	return &ZaduParser{}
+func NewXbiqugeParser() *XbiqugeParser {
+	return &XbiqugeParser{}
 }
 
-func (parser *ZaduParser) SetLinkSet(linkSet *msg.LinkSet) {
+func (parser *XbiqugeParser) SetLinkSet(linkSet *msg.LinkSet) {
 	parser.linkSet = linkSet
 }
 
-func (parser *ZaduParser) Request(url string) (io.ReadCloser, error) {
+func (parser *XbiqugeParser) Request(url string) (io.ReadCloser, error) {
 	client := http.Client{Timeout: time.Second * 30}
 	request, _ := http.NewRequest("GET", url, nil)
 	request.Header.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36")
@@ -40,32 +38,28 @@ func (parser *ZaduParser) Request(url string) (io.ReadCloser, error) {
 	return res.Body, nil
 }
 
-
-func (parser *ZaduParser) ParserClassflysBooks(url string) (entitys.Classfly, error) {
+func (parser *XbiqugeParser) ParserClassflysBooks(url string) (entitys.Classfly, error) {
 	body, reqErr := parser.Request(url)
 	//defer body.Close()
 	if reqErr != nil {
 		fmt.Println("ClassFly TIME OUT" + url)
 		return entitys.Classfly{}, reqErr
 	}
-	fmt.Println(url)
 	//defer body.Close()
-	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
-	doc, err := goquery.NewDocumentFromReader(bytes)
+	doc, err := goquery.NewDocumentFromReader(body)
 	if err != nil {
 		fmt.Println("ClassFly BAN OUT" + url)
 		return entitys.Classfly{}, err
 	}
 	var bookDetailList []entitys.BookDetail
+	fmt.Println(url)
 	// Find the review items
-	doc.Find(".booklist ul li").Each(func(i int, s *goquery.Selection) {
+	doc.Find("#newscontent .l ul li").Each(func(i int, s *goquery.Selection) {
+		fmt.Println(i)
 		// For each item found, get the band and title
-		title, _ := s.Find(".sm>a").Eq(0).Attr("title")
-		href, _ := s.Find(".sm>a").Attr("href")
-		cover, _ := s.Find(".sm>a").Attr("href")
-		if title == "" || href == "" {
-			return
-		}
+		title := s.Find(".s2>a").Text()
+		href, _ := s.Find(".s2>a").Attr("href")
+		cover, _ := s.Find(".s2>a").Attr("href")
 		//fmt.Printf("书名： %s , 封面: %s , 连接 %s\n",  title, cover, href)
 		bookDetailList = append(bookDetailList, entitys.BookDetail{
 			Title: title,
@@ -80,7 +74,7 @@ func (parser *ZaduParser) ParserClassflysBooks(url string) (entitys.Classfly, er
 	}, nil;
 }
 
-func (parser *ZaduParser) ParserBookInfo(url string, classifyId int) (entitys.BookInfo, error) {
+func (parser *XbiqugeParser) ParserBookInfo(url string, classifyId int) (entitys.BookInfo, error) {
 	body, reqErr := parser.Request(url)
 	//defer body.Close()
 	if reqErr != nil {
@@ -88,25 +82,18 @@ func (parser *ZaduParser) ParserBookInfo(url string, classifyId int) (entitys.Bo
 		return entitys.BookInfo{}, reqErr
 	}
 	//defer body.Close()
-	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
-	doc, err := goquery.NewDocumentFromReader(bytes)
+	doc, err := goquery.NewDocumentFromReader(body)
 	if err != nil {
 		fmt.Println("BOOK BAN TIME OUT" + url)
 		return entitys.BookInfo{}, err
 	}
-	title := doc.Find(".jieshao .rt>h1").Eq(0).Text()
-	detail := doc.Find(".jieshao .intro").Eq(0).Text()
-	cover, _ := doc.Find(".jieshao .lf>img").Eq(0).Attr("src")
+	title := doc.Find("#info>h1").Eq(0).Text()
+	author :=  strings.TrimSpace(strings.Split(doc.Find("#info>p").Eq(0).Text(), "：")[1])
+	detail := doc.Find("#intro>p").Eq(1).Text()
+	//author := doc.Find("#info>p").Eq(0).Text()
+	cover, _ := doc.Find("#fmimg>img").Eq(0).Attr("src")
 	href := url
-	var author, status string
-	doc.Find(".jieshao .msg em").Each(func(i int, s *goquery.Selection) {
-		if i == 0 {
-			author = strings.TrimSpace(strings.Split(s.Text(), "：")[1])
-		}
-		if i == 1 {
-			status = strings.TrimSpace(strings.Split(s.Text(), "：")[1])
-		}
-	})
+	status := "连载"
 	//
 	if title == "" || href == "" {
 		fmt.Println("BOOK Parser Faill : " + url)
@@ -123,7 +110,7 @@ func (parser *ZaduParser) ParserBookInfo(url string, classifyId int) (entitys.Bo
 	}, nil
 }
 
-func (parser *ZaduParser) ParserChapters(url string, bookId string) ([]entitys.Chapter, error) {
+func (parser *XbiqugeParser) ParserChapters(url string, bookId string) ([]entitys.Chapter, error) {
 	body, reqErr := parser.Request(url)
 	//defer body.Close()
 	if reqErr != nil {
@@ -131,30 +118,26 @@ func (parser *ZaduParser) ParserChapters(url string, bookId string) ([]entitys.C
 		return []entitys.Chapter{}, reqErr
 	}
 	//defer body.Close()
-	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
-	doc, err := goquery.NewDocumentFromReader(bytes)
+	doc, err := goquery.NewDocumentFromReader(body)
 	if err != nil {
 		fmt.Println("Chapter BAN TIME OUT" + url)
 		return []entitys.Chapter{}, err
 	}
 	var ChapterList []entitys.Chapter
-	doc.Find(".mulu ul li>a").Each(func(i int, s *goquery.Selection) {
+	doc.Find("#list dl dd>a").Each(func(i int, s *goquery.Selection) {
 		link, _ := s.Attr("href")
 		//fmt.Printf("title %s link : %s \n",s.Text(), link)
-		index := i - 9
-		if index >= 0 {
-			ChapterList = append(ChapterList, entitys.Chapter{
-				BookId:      bookId,
-				Title:       s.Text(),
-				Index:       index,
-				ContentLink: url + link,
-			})
-		}
+		ChapterList = append(ChapterList, entitys.Chapter{
+			BookId:      bookId,
+			Title:       s.Text(),
+			Index:       i,
+			ContentLink: "http://www.xbiquge.la" + link,
+		})
 	})
 	return ChapterList, nil
 }
 
-func  (parser *ZaduParser) ParserChapterContents(url string) (string, error)  {
+func  (parser *XbiqugeParser) ParserChapterContents(url string) (string, error)  {
 	//yd_text2
 	body, reqErr := parser.Request(url)
 	//defer body.Close()
@@ -163,12 +146,11 @@ func  (parser *ZaduParser) ParserChapterContents(url string) (string, error)  {
 		return "", reqErr
 	}
 	//defer body.Close()
-	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
-	doc, err := goquery.NewDocumentFromReader(bytes)
+	doc, err := goquery.NewDocumentFromReader(body)
 	if err != nil {
 		fmt.Println("Chapter BAN TIME OUT" + url)
 		return "", err
 	}
-	contents := doc.Find(".novel .yd_text2").Text()
+	contents := doc.Find("#content").Text()
 	return contents, nil
 }
