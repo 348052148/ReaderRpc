@@ -41,3 +41,63 @@ func (bookService *BookService) SearchBookList(cxt context.Context, req *srv.Sea
 
 	return &srv.SearchBookResponse{Books: bookList}, nil
 }
+
+//获取源章节信息
+func (bookService *BookService) GetBookSourceChapterInfo(ctx context.Context, req *srv.SourceChapterRequest) (*srv.SourceChapterResponse, error) {
+	var chapterInfos []*srv.SourceChapterResponse_ChapterInfo;
+	fmt.Println("Last-Source")
+	for _, chapterSource := range req.ChapterSource {
+		parserEngine := bookService.BuilderParser(chapterSource.Source)
+		chapters, _ := parserEngine.ParserChapters(chapterSource.ChapterLink, "1")
+		chapterCount := len(chapters)
+		chapterInfos = append(chapterInfos, &srv.SourceChapterResponse_ChapterInfo{
+			ChapterLink:  chapterSource.ChapterLink,
+			ChapterCount: int32(chapterCount),
+			Source:       chapterSource.Source,
+		})
+	}
+	fmt.Println(chapterInfos)
+	return &srv.SourceChapterResponse{ChapterInfo: chapterInfos}, nil
+}
+
+/**
+var chapterInfos []*srv.SourceChapterResponse_ChapterInfo;
+	chapterInfoChan := make(chan *srv.SourceChapterResponse_ChapterInfo)
+	fmt.Println("Last-Source")
+	wg := &sync.WaitGroup{}
+	for _, chapterSource := range req.ChapterSource {
+		wg.Add(1)
+		go func(source string, chapterLink string) {
+			defer wg.Done()
+			parserEngine := bookService.BuilderParser(source)
+			chapters, _ := parserEngine.ParserChapters(chapterLink, "1")
+			chapterCount := len(chapters)
+			chapterInfoChan <- &srv.SourceChapterResponse_ChapterInfo{
+				ChapterLink:  chapterLink,
+				ChapterCount: int32(chapterCount),
+				Source:       source,
+			}
+		}(chapterSource.Source, chapterSource.ChapterLink)
+	}
+	go func() {
+		for chapterInfo := range chapterInfoChan {
+			fmt.Println(chapterInfo)
+			chapterInfos = append(chapterInfos, chapterInfo)
+		}
+	}()
+	wg.Wait()
+	fmt.Println(chapterInfos)
+	return &srv.SourceChapterResponse{ChapterInfo: chapterInfos}, nil
+ */
+
+func (bookService *BookService) BuilderParser(flag string) parser.Parser {
+	var parserEngin parser.Parser
+	if flag == "quanwen" {
+		parserEngin = parser.NewQuanwenParser()
+	} else if flag == "zadu" {
+		parserEngin = parser.NewZaduParser()
+	} else if flag == "xbiquge" {
+		parserEngin = parser.NewXbiqugeParser()
+	}
+	return parserEngin
+}

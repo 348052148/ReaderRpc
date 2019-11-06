@@ -340,6 +340,187 @@ func (m *SearchBookResponse_Book) GetLink() string {
 	return ""
 }
 
+//获取书籍源章节信息
+type SourceChapterRequest struct {
+	ChapterSource        []*SourceChapterRequest_ChapterSource `protobuf:"bytes,1,rep,name=chapterSource,proto3" json:"chapterSource,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                              `json:"-"`
+	XXX_unrecognized     []byte                                `json:"-"`
+	XXX_sizecache        int32                                 `json:"-"`
+}
+
+func (m *SourceChapterRequest) Reset()         { *m = SourceChapterRequest{} }
+func (m *SourceChapterRequest) String() string { return proto.CompactTextString(m) }
+func (*SourceChapterRequest) ProtoMessage()    {}
+func (*SourceChapterRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_3a91e37936d623fa, []int{4}
+}
+
+func (m *SourceChapterRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SourceChapterRequest.Unmarshal(m, b)
+}
+func (m *SourceChapterRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SourceChapterRequest.Marshal(b, m, deterministic)
+}
+func (m *SourceChapterRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SourceChapterRequest.Merge(m, src)
+}
+func (m *SourceChapterRequest) XXX_Size() int {
+	return xxx_messageInfo_SourceChapterRequest.Size(m)
+}
+func (m *SourceChapterRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SourceChapterRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SourceChapterRequest proto.InternalMessageInfo
+
+func (m *SourceChapterRequest) GetChapterSource() []*SourceChapterRequest_ChapterSource {
+	if m != nil {
+		return m.ChapterSource
+	}
+	return nil
+}
+
+type SourceChapterRequest_ChapterSource struct {
+	ChapterLink          string   `protobuf:"bytes,1,opt,name=chapterLink,proto3" json:"chapterLink,omitempty"`
+	Source               string   `protobuf:"bytes,2,opt,name=source,proto3" json:"source,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SourceChapterRequest_ChapterSource) Reset()         { *m = SourceChapterRequest_ChapterSource{} }
+func (m *SourceChapterRequest_ChapterSource) String() string { return proto.CompactTextString(m) }
+func (*SourceChapterRequest_ChapterSource) ProtoMessage()    {}
+func (*SourceChapterRequest_ChapterSource) Descriptor() ([]byte, []int) {
+	return fileDescriptor_3a91e37936d623fa, []int{4, 0}
+}
+
+func (m *SourceChapterRequest_ChapterSource) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SourceChapterRequest_ChapterSource.Unmarshal(m, b)
+}
+func (m *SourceChapterRequest_ChapterSource) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SourceChapterRequest_ChapterSource.Marshal(b, m, deterministic)
+}
+func (m *SourceChapterRequest_ChapterSource) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SourceChapterRequest_ChapterSource.Merge(m, src)
+}
+func (m *SourceChapterRequest_ChapterSource) XXX_Size() int {
+	return xxx_messageInfo_SourceChapterRequest_ChapterSource.Size(m)
+}
+func (m *SourceChapterRequest_ChapterSource) XXX_DiscardUnknown() {
+	xxx_messageInfo_SourceChapterRequest_ChapterSource.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SourceChapterRequest_ChapterSource proto.InternalMessageInfo
+
+func (m *SourceChapterRequest_ChapterSource) GetChapterLink() string {
+	if m != nil {
+		return m.ChapterLink
+	}
+	return ""
+}
+
+func (m *SourceChapterRequest_ChapterSource) GetSource() string {
+	if m != nil {
+		return m.Source
+	}
+	return ""
+}
+
+type SourceChapterResponse struct {
+	ChapterInfo          []*SourceChapterResponse_ChapterInfo `protobuf:"bytes,1,rep,name=chapterInfo,proto3" json:"chapterInfo,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                             `json:"-"`
+	XXX_unrecognized     []byte                               `json:"-"`
+	XXX_sizecache        int32                                `json:"-"`
+}
+
+func (m *SourceChapterResponse) Reset()         { *m = SourceChapterResponse{} }
+func (m *SourceChapterResponse) String() string { return proto.CompactTextString(m) }
+func (*SourceChapterResponse) ProtoMessage()    {}
+func (*SourceChapterResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_3a91e37936d623fa, []int{5}
+}
+
+func (m *SourceChapterResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SourceChapterResponse.Unmarshal(m, b)
+}
+func (m *SourceChapterResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SourceChapterResponse.Marshal(b, m, deterministic)
+}
+func (m *SourceChapterResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SourceChapterResponse.Merge(m, src)
+}
+func (m *SourceChapterResponse) XXX_Size() int {
+	return xxx_messageInfo_SourceChapterResponse.Size(m)
+}
+func (m *SourceChapterResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_SourceChapterResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SourceChapterResponse proto.InternalMessageInfo
+
+func (m *SourceChapterResponse) GetChapterInfo() []*SourceChapterResponse_ChapterInfo {
+	if m != nil {
+		return m.ChapterInfo
+	}
+	return nil
+}
+
+type SourceChapterResponse_ChapterInfo struct {
+	Source               string   `protobuf:"bytes,1,opt,name=source,proto3" json:"source,omitempty"`
+	ChapterLink          string   `protobuf:"bytes,2,opt,name=chapterLink,proto3" json:"chapterLink,omitempty"`
+	ChapterCount         int32    `protobuf:"varint,3,opt,name=chapterCount,proto3" json:"chapterCount,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SourceChapterResponse_ChapterInfo) Reset()         { *m = SourceChapterResponse_ChapterInfo{} }
+func (m *SourceChapterResponse_ChapterInfo) String() string { return proto.CompactTextString(m) }
+func (*SourceChapterResponse_ChapterInfo) ProtoMessage()    {}
+func (*SourceChapterResponse_ChapterInfo) Descriptor() ([]byte, []int) {
+	return fileDescriptor_3a91e37936d623fa, []int{5, 0}
+}
+
+func (m *SourceChapterResponse_ChapterInfo) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SourceChapterResponse_ChapterInfo.Unmarshal(m, b)
+}
+func (m *SourceChapterResponse_ChapterInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SourceChapterResponse_ChapterInfo.Marshal(b, m, deterministic)
+}
+func (m *SourceChapterResponse_ChapterInfo) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SourceChapterResponse_ChapterInfo.Merge(m, src)
+}
+func (m *SourceChapterResponse_ChapterInfo) XXX_Size() int {
+	return xxx_messageInfo_SourceChapterResponse_ChapterInfo.Size(m)
+}
+func (m *SourceChapterResponse_ChapterInfo) XXX_DiscardUnknown() {
+	xxx_messageInfo_SourceChapterResponse_ChapterInfo.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SourceChapterResponse_ChapterInfo proto.InternalMessageInfo
+
+func (m *SourceChapterResponse_ChapterInfo) GetSource() string {
+	if m != nil {
+		return m.Source
+	}
+	return ""
+}
+
+func (m *SourceChapterResponse_ChapterInfo) GetChapterLink() string {
+	if m != nil {
+		return m.ChapterLink
+	}
+	return ""
+}
+
+func (m *SourceChapterResponse_ChapterInfo) GetChapterCount() int32 {
+	if m != nil {
+		return m.ChapterCount
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*BookRequest)(nil), "srv.BookRequest")
 	proto.RegisterType((*BookResponse)(nil), "srv.BookResponse")
@@ -347,32 +528,44 @@ func init() {
 	proto.RegisterType((*SearchBookRequest)(nil), "srv.SearchBookRequest")
 	proto.RegisterType((*SearchBookResponse)(nil), "srv.SearchBookResponse")
 	proto.RegisterType((*SearchBookResponse_Book)(nil), "srv.SearchBookResponse.Book")
+	proto.RegisterType((*SourceChapterRequest)(nil), "srv.SourceChapterRequest")
+	proto.RegisterType((*SourceChapterRequest_ChapterSource)(nil), "srv.SourceChapterRequest.ChapterSource")
+	proto.RegisterType((*SourceChapterResponse)(nil), "srv.SourceChapterResponse")
+	proto.RegisterType((*SourceChapterResponse_ChapterInfo)(nil), "srv.SourceChapterResponse.ChapterInfo")
 }
 
 func init() { proto.RegisterFile("protoc/BookService.protoc", fileDescriptor_3a91e37936d623fa) }
 
 var fileDescriptor_3a91e37936d623fa = []byte{
-	// 310 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x92, 0xcf, 0x4a, 0xf4, 0x30,
-	0x14, 0xc5, 0x27, 0x5f, 0xff, 0x7c, 0x78, 0x2b, 0xe2, 0x04, 0xa9, 0x71, 0x70, 0x31, 0x76, 0x35,
-	0x08, 0x56, 0xa8, 0x3e, 0x81, 0x2e, 0x44, 0x70, 0x35, 0xf3, 0x04, 0x9d, 0x4e, 0x64, 0x4a, 0x4b,
-	0xef, 0x98, 0xa4, 0x15, 0xdf, 0xc0, 0x95, 0x2f, 0xe6, 0x13, 0xf8, 0x36, 0x92, 0xdc, 0xaa, 0x85,
-	0xe2, 0xde, 0x5d, 0xcf, 0xe9, 0x2f, 0x21, 0xe7, 0xdc, 0x0b, 0x27, 0x3b, 0x85, 0x06, 0x8b, 0xcb,
-	0x1b, 0xc4, 0x6a, 0x25, 0x55, 0x57, 0x16, 0x32, 0x25, 0x8b, 0x7b, 0x5a, 0x75, 0xc9, 0x19, 0x44,
-	0xf6, 0xd7, 0x52, 0x3e, 0xb5, 0x52, 0x1b, 0xce, 0xc1, 0xaf, 0xcb, 0xa6, 0x12, 0x6c, 0xce, 0x16,
-	0x7b, 0x4b, 0xf7, 0x9d, 0xbc, 0x33, 0xd8, 0x27, 0x46, 0xef, 0xb0, 0xd1, 0x92, 0x9f, 0x83, 0xbf,
-	0x46, 0x24, 0x28, 0xca, 0xe2, 0x54, 0xab, 0x2e, 0x1d, 0x02, 0x24, 0x1c, 0x33, 0x7b, 0x63, 0xe0,
-	0x5b, 0xc9, 0x8f, 0x20, 0x30, 0xa5, 0xa9, 0x65, 0x7f, 0x35, 0x09, 0x1e, 0x43, 0x98, 0xb7, 0x66,
-	0x8b, 0x4a, 0xfc, 0x73, 0x76, 0xaf, 0x2c, 0x5d, 0x60, 0x27, 0x95, 0xf0, 0x88, 0x76, 0xc2, 0xd2,
-	0xda, 0xe4, 0xa6, 0xd5, 0xc2, 0x27, 0x9a, 0x94, 0xf5, 0x37, 0xd2, 0xe4, 0x65, 0x2d, 0x02, 0xf2,
-	0x49, 0x7d, 0xa7, 0x09, 0x07, 0x69, 0x2e, 0x60, 0xba, 0x92, 0xb9, 0x2a, 0xb6, 0xc3, 0xd8, 0x02,
-	0xfe, 0x57, 0xf2, 0xe5, 0x19, 0xd5, 0xa6, 0x7f, 0xde, 0x97, 0x4c, 0x3e, 0x18, 0xf0, 0x21, 0xdf,
-	0x57, 0x90, 0x41, 0x60, 0xe3, 0x69, 0xc1, 0xe6, 0xde, 0x22, 0xca, 0x4e, 0x5d, 0x07, 0x63, 0x8e,
-	0x9a, 0x20, 0xf4, 0xcf, 0x55, 0x91, 0xbd, 0x32, 0x1a, 0x7e, 0xbf, 0x17, 0xfc, 0x1a, 0xa2, 0x3b,
-	0x69, 0xac, 0x73, 0xdf, 0x3c, 0x22, 0x3f, 0x1c, 0x0c, 0xd6, 0xd5, 0x34, 0x9b, 0x8e, 0x46, 0x9d,
-	0x4c, 0xf8, 0x2d, 0x1c, 0xfc, 0x04, 0x7f, 0x28, 0xb5, 0xe1, 0xf1, 0xa8, 0x0d, 0x3a, 0x7e, 0xfc,
-	0x4b, 0x4b, 0xc9, 0x64, 0x1d, 0xba, 0x9d, 0xbc, 0xfa, 0x0c, 0x00, 0x00, 0xff, 0xff, 0xb5, 0x96,
-	0x2a, 0xc9, 0xaf, 0x02, 0x00, 0x00,
+	// 447 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x54, 0x41, 0x6e, 0xd4, 0x30,
+	0x14, 0x1d, 0x77, 0x92, 0x41, 0xfc, 0xb4, 0x88, 0x5a, 0x65, 0x70, 0x23, 0x16, 0x83, 0x17, 0x50,
+	0x21, 0x11, 0xa4, 0xc0, 0x09, 0xc8, 0x02, 0x2a, 0x95, 0x4d, 0x72, 0x82, 0x34, 0x35, 0x9a, 0x28,
+	0xa3, 0x78, 0xb0, 0x9d, 0x20, 0x2e, 0xc1, 0x59, 0xb8, 0x07, 0x12, 0x7b, 0x16, 0xdc, 0x05, 0xc5,
+	0xdf, 0xed, 0x38, 0xcd, 0xcc, 0xbe, 0xbb, 0x79, 0xcf, 0xcf, 0xf1, 0x7f, 0xef, 0xff, 0x3f, 0x70,
+	0xbe, 0x55, 0xd2, 0xc8, 0xea, 0xdd, 0x47, 0x29, 0x9b, 0x42, 0xa8, 0xbe, 0xae, 0x44, 0x82, 0x14,
+	0x9d, 0x6b, 0xd5, 0xf3, 0x97, 0x10, 0x0d, 0x47, 0xb9, 0xf8, 0xd6, 0x09, 0x6d, 0x28, 0x85, 0x60,
+	0x53, 0xb7, 0x0d, 0x23, 0x2b, 0x72, 0xf1, 0x38, 0xb7, 0xbf, 0xf9, 0x6f, 0x02, 0xc7, 0xa8, 0xd1,
+	0x5b, 0xd9, 0x6a, 0x41, 0xdf, 0x40, 0x70, 0x2d, 0x25, 0x8a, 0xa2, 0x74, 0x99, 0x68, 0xd5, 0x27,
+	0xbe, 0x00, 0x81, 0xd5, 0xc4, 0x3f, 0x09, 0x04, 0x03, 0xa4, 0x67, 0x10, 0x9a, 0xda, 0x6c, 0x84,
+	0xfb, 0x34, 0x02, 0xba, 0x84, 0x45, 0xd9, 0x99, 0xb5, 0x54, 0xec, 0xc8, 0xd2, 0x0e, 0x0d, 0xea,
+	0x4a, 0xf6, 0x42, 0xb1, 0x39, 0xaa, 0x2d, 0x18, 0xd4, 0xda, 0x94, 0xa6, 0xd3, 0x2c, 0x40, 0x35,
+	0xa2, 0x81, 0xbf, 0x11, 0xa6, 0xac, 0x37, 0x2c, 0x44, 0x1e, 0xd1, 0x9d, 0x9b, 0x85, 0xe7, 0xe6,
+	0x2d, 0x9c, 0x16, 0xa2, 0x54, 0xd5, 0xda, 0xb7, 0xcd, 0xe0, 0x51, 0x23, 0x7e, 0x7c, 0x97, 0xea,
+	0xc6, 0x95, 0x77, 0x0b, 0xf9, 0x5f, 0x02, 0xd4, 0xd7, 0xbb, 0x08, 0x52, 0x08, 0x07, 0x7b, 0x9a,
+	0x91, 0xd5, 0xfc, 0x22, 0x4a, 0x5f, 0xd8, 0x0c, 0xa6, 0x3a, 0x4c, 0x02, 0xa5, 0x0f, 0x2f, 0x8a,
+	0x5f, 0x04, 0xce, 0x0a, 0xd9, 0xa9, 0x4a, 0x64, 0xeb, 0x72, 0x6b, 0x84, 0xba, 0x8d, 0xe3, 0x0b,
+	0x9c, 0x54, 0xc8, 0xe0, 0xb1, 0x73, 0xf9, 0x1a, 0x5d, 0xee, 0xb9, 0x91, 0x64, 0xbe, 0x3c, 0x1f,
+	0xdf, 0x8e, 0x2f, 0xe1, 0x64, 0x74, 0x4e, 0x57, 0x10, 0x39, 0xc5, 0xd5, 0x6e, 0xd8, 0x7c, 0xca,
+	0xda, 0xc3, 0xa7, 0x5d, 0x18, 0x88, 0xf8, 0x1f, 0x02, 0xcf, 0xee, 0x15, 0xe0, 0x3a, 0xf2, 0xf9,
+	0xee, 0x9b, 0x97, 0xed, 0x57, 0xe9, 0x2a, 0x7e, 0xb5, 0xaf, 0x62, 0xd7, 0x9a, 0x6c, 0xa7, 0xce,
+	0xfd, 0xab, 0x71, 0x03, 0x91, 0x77, 0xe6, 0x95, 0x42, 0xfc, 0x52, 0xee, 0x9b, 0x38, 0x9a, 0x9a,
+	0xe0, 0x70, 0xec, 0x60, 0x26, 0xbb, 0xd6, 0xd8, 0x06, 0x86, 0xf9, 0x88, 0x4b, 0xff, 0x11, 0x5c,
+	0x40, 0xb7, 0x9b, 0xf4, 0x03, 0x44, 0x9f, 0x84, 0x19, 0x18, 0xfb, 0xf8, 0x53, 0x6f, 0xb9, 0x6c,
+	0xd2, 0xf1, 0xe9, 0x64, 0xdd, 0xf8, 0x8c, 0x66, 0xf0, 0x64, 0x37, 0x7c, 0x57, 0xb5, 0x36, 0x74,
+	0x39, 0x99, 0x48, 0xbc, 0xfe, 0xfc, 0xc0, 0xa4, 0xf2, 0x19, 0x2d, 0x80, 0xb9, 0xa7, 0x47, 0x81,
+	0xd9, 0x3a, 0xce, 0x0f, 0xb6, 0x3e, 0x8e, 0x0f, 0x67, 0xcc, 0x67, 0xd7, 0x0b, 0xfb, 0x67, 0xf3,
+	0xfe, 0x7f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x60, 0x8d, 0x6e, 0xda, 0x88, 0x04, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -391,6 +584,8 @@ type BookServiceClient interface {
 	GetBookInfo(ctx context.Context, in *BookRequest, opts ...grpc.CallOption) (*BookResponse, error)
 	// 搜索书籍
 	SearchBookList(ctx context.Context, in *SearchBookRequest, opts ...grpc.CallOption) (*SearchBookResponse, error)
+	// 获取书籍章节源信息
+	GetBookSourceChapterInfo(ctx context.Context, in *SourceChapterRequest, opts ...grpc.CallOption) (*SourceChapterResponse, error)
 }
 
 type bookServiceClient struct {
@@ -419,12 +614,23 @@ func (c *bookServiceClient) SearchBookList(ctx context.Context, in *SearchBookRe
 	return out, nil
 }
 
+func (c *bookServiceClient) GetBookSourceChapterInfo(ctx context.Context, in *SourceChapterRequest, opts ...grpc.CallOption) (*SourceChapterResponse, error) {
+	out := new(SourceChapterResponse)
+	err := c.cc.Invoke(ctx, "/srv.BookService/GetBookSourceChapterInfo", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BookServiceServer is the server API for BookService service.
 type BookServiceServer interface {
 	// 获取书籍信息服务
 	GetBookInfo(context.Context, *BookRequest) (*BookResponse, error)
 	// 搜索书籍
 	SearchBookList(context.Context, *SearchBookRequest) (*SearchBookResponse, error)
+	// 获取书籍章节源信息
+	GetBookSourceChapterInfo(context.Context, *SourceChapterRequest) (*SourceChapterResponse, error)
 }
 
 // UnimplementedBookServiceServer can be embedded to have forward compatible implementations.
@@ -436,6 +642,9 @@ func (*UnimplementedBookServiceServer) GetBookInfo(ctx context.Context, req *Boo
 }
 func (*UnimplementedBookServiceServer) SearchBookList(ctx context.Context, req *SearchBookRequest) (*SearchBookResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchBookList not implemented")
+}
+func (*UnimplementedBookServiceServer) GetBookSourceChapterInfo(ctx context.Context, req *SourceChapterRequest) (*SourceChapterResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBookSourceChapterInfo not implemented")
 }
 
 func RegisterBookServiceServer(s *grpc.Server, srv BookServiceServer) {
@@ -478,6 +687,24 @@ func _BookService_SearchBookList_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BookService_GetBookSourceChapterInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SourceChapterRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookServiceServer).GetBookSourceChapterInfo(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/srv.BookService/GetBookSourceChapterInfo",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookServiceServer).GetBookSourceChapterInfo(ctx, req.(*SourceChapterRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _BookService_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "srv.BookService",
 	HandlerType: (*BookServiceServer)(nil),
@@ -489,6 +716,10 @@ var _BookService_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SearchBookList",
 			Handler:    _BookService_SearchBookList_Handler,
+		},
+		{
+			MethodName: "GetBookSourceChapterInfo",
+			Handler:    _BookService_GetBookSourceChapterInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

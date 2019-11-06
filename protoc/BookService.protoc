@@ -8,6 +8,8 @@ service BookService {
     rpc GetBookInfo(BookRequest) returns (BookResponse) {}
     // 搜索书籍
     rpc SearchBookList(SearchBookRequest) returns (SearchBookResponse) {}
+    // 获取书籍章节源信息
+    rpc GetBookSourceChapterInfo(SourceChapterRequest) returns (SourceChapterResponse) {}
 }
 //标注+类型+属性名+属性顺序号+[默认值]
 
@@ -41,4 +43,21 @@ message SearchBookResponse {
             string link = 6;   //章节链接
     };
     repeated Book books = 1; //
+}
+
+//获取书籍源章节信息
+message SourceChapterRequest {
+    message ChapterSource {
+        string chapterLink = 1;
+        string source      = 2;
+    };
+    repeated ChapterSource chapterSource = 1;
+}
+message SourceChapterResponse {
+    message ChapterInfo {
+        string source       = 1;
+        string chapterLink  = 2;
+        int32  chapterCount = 3;
+    }
+    repeated ChapterInfo chapterInfo = 1;
 }
