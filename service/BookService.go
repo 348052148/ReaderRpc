@@ -6,6 +6,7 @@ import (
 	"fmt"
 	url2 "net/url"
 	"ReadRpc/srv/protoc"
+	"sync"
 )
 
 type BookService struct {
@@ -46,16 +47,22 @@ func (bookService *BookService) SearchBookList(cxt context.Context, req *srv.Sea
 func (bookService *BookService) GetBookSourceChapterInfo(ctx context.Context, req *srv.SourceChapterRequest) (*srv.SourceChapterResponse, error) {
 	var chapterInfos []*srv.SourceChapterResponse_ChapterInfo;
 	fmt.Println("Last-Source")
+	wg := &sync.WaitGroup{}
 	for _, chapterSource := range req.ChapterSource {
-		parserEngine := bookService.BuilderParser(chapterSource.Source)
-		chapters, _ := parserEngine.ParserChapters(chapterSource.ChapterLink, "1")
-		chapterCount := len(chapters)
-		chapterInfos = append(chapterInfos, &srv.SourceChapterResponse_ChapterInfo{
-			ChapterLink:  chapterSource.ChapterLink,
-			ChapterCount: int32(chapterCount),
-			Source:       chapterSource.Source,
-		})
+		wg.Add(1)
+		go func(source string, chapterLink string) {
+			defer wg.Done()
+			parserEngine := bookService.BuilderParser(source)
+			chapters, _ := parserEngine.ParserChapters(chapterLink, "1")
+			chapterCount := len(chapters)
+			chapterInfos = append(chapterInfos, &srv.SourceChapterResponse_ChapterInfo{
+				ChapterLink:  chapterLink,
+				ChapterCount: int32(chapterCount),
+				Source:       source,
+			})
+		}(chapterSource.Source, chapterSource.ChapterLink)
 	}
+	wg.Wait()
 	fmt.Println(chapterInfos)
 	return &srv.SourceChapterResponse{ChapterInfo: chapterInfos}, nil
 }

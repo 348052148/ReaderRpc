@@ -112,7 +112,7 @@ func (parser *XbiqugeParser) ParserBookInfo(url string, classifyId int) (entitys
 
 func (parser *XbiqugeParser) ParserChapters(url string, bookId string) ([]entitys.Chapter, error) {
 	body, reqErr := parser.Request(url)
-	//defer body.Close()
+	defer body.Close()
 	if reqErr != nil {
 		fmt.Println("Chapter TIME OUT" + url)
 		return []entitys.Chapter{}, reqErr
@@ -140,7 +140,7 @@ func (parser *XbiqugeParser) ParserChapters(url string, bookId string) ([]entity
 func  (parser *XbiqugeParser) ParserChapterContents(url string) (string, error)  {
 	//yd_text2
 	body, reqErr := parser.Request(url)
-	//defer body.Close()
+	defer body.Close()
 	if reqErr != nil {
 		fmt.Println("Chapter TIME OUT" + url)
 		return "", reqErr

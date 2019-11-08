@@ -122,7 +122,7 @@ func (parser *QuanwenParser) ParserBookInfo(url string, classifyId int) (entitys
 
 func (parser *QuanwenParser)ParserChapters(url string, bookId string) ([]entitys.Chapter, error) {
 	body, reqErr := parser.Request(url)
-	//defer body.Close()
+	defer body.Close()
 	if reqErr != nil {
 		fmt.Println("Chapter TIME OUT"+ url)
 		return []entitys.Chapter{}, reqErr
@@ -186,7 +186,7 @@ func (parser *QuanwenParser)ParserSearchBooks(url string) ([]entitys.BookInfo, e
 
 func (parser *QuanwenParser)ParserChapterContents(url string) (string, error) {
 	body, reqErr := parser.Request(url)
-	//defer body.Close()
+	defer body.Close()
 	if reqErr != nil {
 		fmt.Println("Chapter TIME OUT" + url)
 		return "", reqErr
