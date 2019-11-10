@@ -14,7 +14,10 @@ type ParserService struct {
 func (parserService *ParserService) ParserChapters(cxt context.Context, req *srv.ChapterRequest) (*srv.ChapterResponse, error) {
 	fmt.Println("chapters", req.Link, req.Source)
 	parserEngin := parserService.BuilderParser(req.Source)
-	chapters, _ := parserEngin.ParserChapters(req.Link, "1")
+	chapters, err := parserEngin.ParserChapters(req.Link, "1")
+	if err != nil {
+		return &srv.ChapterResponse{}, nil
+	}
 	var chapterList []*srv.ChapterResponse_Chapter
 	for _, chapter := range chapters {
 		chapterList = append(chapterList, &srv.ChapterResponse_Chapter{
