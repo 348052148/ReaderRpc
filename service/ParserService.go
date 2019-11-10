@@ -12,7 +12,7 @@ type ParserService struct {
 
 // 获取书籍章节列表
 func (parserService *ParserService) ParserChapters(cxt context.Context, req *srv.ChapterRequest) (*srv.ChapterResponse, error) {
-	fmt.Println("chapters", req.Link, req.Source)
+	fmt.Printf("chapters : %s, %s", req.Link, req.Source)
 	parserEngin := parserService.BuilderParser(req.Source)
 	chapters, err := parserEngin.ParserChapters(req.Link, "1")
 	if err != nil {
