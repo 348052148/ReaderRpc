@@ -3,8 +3,8 @@ package service
 import (
 	"ReadRpc/srv/protoc"
 	"context"
-	"fmt"
 	"ReadRpc/parser"
+	"ReadRpc/logs"
 )
 
 type ParserService struct {
@@ -12,10 +12,11 @@ type ParserService struct {
 
 // 获取书籍章节列表
 func (parserService *ParserService) ParserChapters(cxt context.Context, req *srv.ChapterRequest) (*srv.ChapterResponse, error) {
-	fmt.Printf("chapters : %s, %s", req.Link, req.Source)
+	logs.Info("Chapter", []interface{}{req.Link, req.Source})
 	parserEngin := parserService.BuilderParser(req.Source)
 	chapters, err := parserEngin.ParserChapters(req.Link, "1")
 	if err != nil {
+		logs.Error("Chapter", err)
 		return &srv.ChapterResponse{}, nil
 	}
 	var chapterList []*srv.ChapterResponse_Chapter
@@ -31,7 +32,7 @@ func (parserService *ParserService) ParserChapters(cxt context.Context, req *srv
 }
 
 func (parserService *ParserService) ParserChapterContents(cxt context.Context, req *srv.ChapterContentRequest)(*srv.ChapterContentResponse, error)  {
-	fmt.Println("contents", req.Link, req.Source)
+	logs.Info("Contents", []interface{}{req.Link, req.Source})
 	parserEngin := parserService.BuilderParser(req.Source)
 	contents, _ := parserEngin.ParserChapterContents(req.Link)
 

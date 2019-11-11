@@ -7,6 +7,7 @@ import (
 	url2 "net/url"
 	"ReadRpc/srv/protoc"
 	"sync"
+	"ReadRpc/logs"
 )
 
 type BookService struct {
@@ -45,8 +46,8 @@ func (bookService *BookService) SearchBookList(cxt context.Context, req *srv.Sea
 
 //获取源章节信息
 func (bookService *BookService) GetBookSourceChapterInfo(ctx context.Context, req *srv.SourceChapterRequest) (*srv.SourceChapterResponse, error) {
+	logs.Info("GetBookSourceChapter :", req.ChapterSource)
 	var chapterInfos []*srv.SourceChapterResponse_ChapterInfo;
-	fmt.Println("Last-Source")
 	wg := &sync.WaitGroup{}
 	for _, chapterSource := range req.ChapterSource {
 		wg.Add(1)
