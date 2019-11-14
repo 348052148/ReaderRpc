@@ -54,13 +54,15 @@ func (bookService *BookService) GetBookSourceChapterInfo(ctx context.Context, re
 		go func(source string, chapterLink string) {
 			defer wg.Done()
 			parserEngine := bookService.BuilderParser(source)
-			chapters, _ := parserEngine.ParserChapters(chapterLink, "1")
-			chapterCount := len(chapters)
-			chapterInfos = append(chapterInfos, &srv.SourceChapterResponse_ChapterInfo{
-				ChapterLink:  chapterLink,
-				ChapterCount: int32(chapterCount),
-				Source:       source,
-			})
+			chapters, err := parserEngine.ParserChapters(chapterLink, "1")
+			if err == nil {
+				chapterCount := len(chapters)
+				chapterInfos = append(chapterInfos, &srv.SourceChapterResponse_ChapterInfo{
+					ChapterLink:  chapterLink,
+					ChapterCount: int32(chapterCount),
+					Source:       source,
+				})
+			}
 		}(chapterSource.Source, chapterSource.ChapterLink)
 	}
 	wg.Wait()
