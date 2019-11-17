@@ -55,7 +55,7 @@ func (bookService *BookService) GetBookSourceChapterInfo(ctx context.Context, re
 			defer wg.Done()
 			parserEngine := bookService.BuilderParser(source)
 			chapters, err := parserEngine.ParserChapters(chapterLink, "1")
-			if err == nil {
+			if err != nil {
 				return
 			}
 			chapterCount := len(chapters)
