@@ -87,13 +87,13 @@ func (parser *ZaduParser) ParserBookInfo(url string, classifyId int) (entitys.Bo
 		fmt.Println("BOOK TIME OUT" + url)
 		return entitys.BookInfo{}, reqErr
 	}
-	defer body.Close()
 	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
 	doc, err := goquery.NewDocumentFromReader(bytes)
 	if err != nil {
 		fmt.Println("BOOK BAN TIME OUT" + url)
 		return entitys.BookInfo{}, err
 	}
+	defer body.Close()
 	title := doc.Find(".jieshao .rt>h1").Eq(0).Text()
 	detail := doc.Find(".jieshao .intro").Eq(0).Text()
 	cover, _ := doc.Find(".jieshao .lf>img").Eq(0).Attr("src")
@@ -129,13 +129,13 @@ func (parser *ZaduParser) ParserChapters(url string, bookId string) ([]entitys.C
 		fmt.Println("Chapter TIME OUT" + url)
 		return []entitys.Chapter{}, reqErr
 	}
-	defer body.Close()
 	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
 	doc, err := goquery.NewDocumentFromReader(bytes)
 	if err != nil {
 		fmt.Println("Chapter BAN TIME OUT" + url)
 		return []entitys.Chapter{}, err
 	}
+	defer body.Close()
 	ChapterList := make([]entitys.Chapter, 0)
 	doc.Find(".mulu ul li>a").Each(func(i int, s *goquery.Selection) {
 		link, _ := s.Attr("href")
@@ -160,13 +160,13 @@ func  (parser *ZaduParser) ParserChapterContents(url string) (string, error)  {
 		fmt.Println("Chapter TIME OUT" + url)
 		return "", reqErr
 	}
-	defer body.Close()
 	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
 	doc, err := goquery.NewDocumentFromReader(bytes)
 	if err != nil {
 		fmt.Println("Chapter BAN TIME OUT" + url)
 		return "", err
 	}
+	defer body.Close()
 	contents := doc.Find(".novel .yd_text2").Text()
 	return contents, nil
 }

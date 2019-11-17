@@ -11,9 +11,8 @@ type Logger struct {
 }
 
 var logger *Logger
-var logPath string = "."
 
-func NewLogger() *Logger {
+func NewLogger(logPath string) *Logger {
 	fmt.Printf("LoggerFile : %s%c%s \n",logPath,os.PathSeparator,"rpc.log")
 	fileHandler, err := os.OpenFile(fmt.Sprintf("%s%c%s",logPath,os.PathSeparator,"rpc.log"), os.O_CREATE|os.O_APPEND , os.ModePerm)
 	if err != nil {
@@ -24,12 +23,8 @@ func NewLogger() *Logger {
 	}
 }
 
-func Init()  {
-	logger = NewLogger()
-}
-
-func SetLogPath(path string)  {
-	logPath = path
+func Init(logPath string)  {
+	logger = NewLogger(logPath)
 }
 
 //INFO

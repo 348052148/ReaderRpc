@@ -116,12 +116,12 @@ func (parser *XbiqugeParser) ParserChapters(url string, bookId string) ([]entity
 		fmt.Println("Chapter TIME OUT" + url)
 		return []entitys.Chapter{}, reqErr
 	}
-	defer body.Close()
 	doc, err := goquery.NewDocumentFromReader(body)
 	if err != nil {
 		fmt.Println("Chapter BAN TIME OUT" + url)
 		return []entitys.Chapter{}, err
 	}
+	defer body.Close()
 	ChapterList := make([]entitys.Chapter, 0)
 	doc.Find("#list dl dd>a").Each(func(i int, s *goquery.Selection) {
 		link, _ := s.Attr("href")
@@ -143,12 +143,12 @@ func (parser *XbiqugeParser) ParserChapterContents(url string) (string, error) {
 		fmt.Println("Chapter TIME OUT" + url)
 		return "", reqErr
 	}
-	defer body.Close()
 	doc, err := goquery.NewDocumentFromReader(body)
 	if err != nil {
 		fmt.Println("Chapter BAN TIME OUT" + url)
 		return "", err
 	}
+	defer body.Close()
 	contents := doc.Find("#content").Text()
 	return contents, nil
 }

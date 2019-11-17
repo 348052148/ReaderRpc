@@ -23,8 +23,7 @@ func main() {
 	flag.Parse()
 	fmt.Printf("Host:%s, Port: %s, Etcd: %s, logPath: %s \n", *host, *port, *etcdAddress, *logPath)
 	//设置日志目录
-	logs.SetLogPath(*logPath)
-	logs.Init()
+	logs.Init(*logPath)
 	//地址
 	address := (*host) +":" + (*port)
 	lis, err := net.Listen("tcp", address)  //监听所有网卡8028端口的TCP连接

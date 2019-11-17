@@ -126,13 +126,13 @@ func (parser *QuanwenParser)ParserChapters(url string, bookId string) ([]entitys
 		fmt.Println("Chapter TIME OUT"+ url)
 		return []entitys.Chapter{}, reqErr
 	}
-	defer body.Close()
 	bytes := transform.NewReader(body ,simplifiedchinese.GBK.NewDecoder())
 	doc, err := goquery.NewDocumentFromReader(bytes)
 	if err != nil {
 		fmt.Println("Chapter BAN TIME OUT" + url)
 		return []entitys.Chapter{}, err
 	}
+	defer body.Close();
 	ChapterList := make([]entitys.Chapter, 0)
 	doc.Find(".chapterSo .chapterNum ul li>a").Each(func(i int, s *goquery.Selection) {
 		link,_ := s.Attr("href")
@@ -189,13 +189,13 @@ func (parser *QuanwenParser)ParserChapterContents(url string) (string, error) {
 		fmt.Println("Chapter TIME OUT" + url)
 		return "", reqErr
 	}
-	defer body.Close()
 	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
 	doc, err := goquery.NewDocumentFromReader(bytes)
 	if err != nil {
 		fmt.Println("Chapter BAN TIME OUT" + url)
 		return "", err
 	}
+	defer body.Close()
 	contents := doc.Find(".bookInfo .mainContenr").Text()
 	return contents, nil
 }
