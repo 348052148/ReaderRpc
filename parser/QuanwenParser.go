@@ -185,12 +185,11 @@ func (parser *QuanwenParser)ParserSearchBooks(url string) ([]entitys.BookInfo, e
 
 func (parser *QuanwenParser)ParserChapterContents(url string) (string, error) {
 	body, reqErr := parser.Request(url)
-	defer body.Close()
 	if reqErr != nil {
 		fmt.Println("Chapter TIME OUT" + url)
 		return "", reqErr
 	}
-	//defer body.Close()
+	defer body.Close()
 	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
 	doc, err := goquery.NewDocumentFromReader(bytes)
 	if err != nil {

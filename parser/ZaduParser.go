@@ -87,7 +87,7 @@ func (parser *ZaduParser) ParserBookInfo(url string, classifyId int) (entitys.Bo
 		fmt.Println("BOOK TIME OUT" + url)
 		return entitys.BookInfo{}, reqErr
 	}
-	//defer body.Close()
+	defer body.Close()
 	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
 	doc, err := goquery.NewDocumentFromReader(bytes)
 	if err != nil {
@@ -156,12 +156,11 @@ func (parser *ZaduParser) ParserChapters(url string, bookId string) ([]entitys.C
 func  (parser *ZaduParser) ParserChapterContents(url string) (string, error)  {
 	//yd_text2
 	body, reqErr := parser.Request(url)
-	defer body.Close()
 	if reqErr != nil {
 		fmt.Println("Chapter TIME OUT" + url)
 		return "", reqErr
 	}
-	//defer body.Close()
+	defer body.Close()
 	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
 	doc, err := goquery.NewDocumentFromReader(bytes)
 	if err != nil {

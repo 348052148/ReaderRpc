@@ -139,12 +139,11 @@ func (parser *XbiqugeParser) ParserChapters(url string, bookId string) ([]entity
 func (parser *XbiqugeParser) ParserChapterContents(url string) (string, error) {
 	//yd_text2
 	body, reqErr := parser.Request(url)
-	defer body.Close()
 	if reqErr != nil {
 		fmt.Println("Chapter TIME OUT" + url)
 		return "", reqErr
 	}
-	//defer body.Close()
+	defer body.Close()
 	doc, err := goquery.NewDocumentFromReader(body)
 	if err != nil {
 		fmt.Println("Chapter BAN TIME OUT" + url)
