@@ -27,7 +27,7 @@ func (parser *QuanwenParser)SetLinkSet(linkSet *msg.LinkSet)  {
 }
 
 func (parser *QuanwenParser)Request(url string) (io.ReadCloser, error) {
-	client := http.Client{Timeout:time.Second * 5}
+	client := http.Client{Timeout:time.Second * 10}
 	request, _ := http.NewRequest("GET", url, nil)
 	request.Header.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36")
 	request.Header.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3")
@@ -126,14 +126,14 @@ func (parser *QuanwenParser)ParserChapters(url string, bookId string) ([]entitys
 		fmt.Println("Chapter TIME OUT"+ url)
 		return []entitys.Chapter{}, reqErr
 	}
-	//defer body.Close()
+	defer body.Close()
 	bytes := transform.NewReader(body ,simplifiedchinese.GBK.NewDecoder())
 	doc, err := goquery.NewDocumentFromReader(bytes)
 	if err != nil {
 		fmt.Println("Chapter BAN TIME OUT" + url)
 		return []entitys.Chapter{}, err
 	}
-	var ChapterList []entitys.Chapter
+	ChapterList := make([]entitys.Chapter, 0)
 	doc.Find(".chapterSo .chapterNum ul li>a").Each(func(i int, s *goquery.Selection) {
 		link,_ := s.Attr("href")
 		//fmt.Printf("title %s link : %s \n",s.Text(), link)

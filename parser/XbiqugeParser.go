@@ -88,7 +88,7 @@ func (parser *XbiqugeParser) ParserBookInfo(url string, classifyId int) (entitys
 		return entitys.BookInfo{}, err
 	}
 	title := doc.Find("#info>h1").Eq(0).Text()
-	author :=  strings.TrimSpace(strings.Split(doc.Find("#info>p").Eq(0).Text(), "：")[1])
+	author := strings.TrimSpace(strings.Split(doc.Find("#info>p").Eq(0).Text(), "：")[1])
 	detail := doc.Find("#intro>p").Eq(1).Text()
 	//author := doc.Find("#info>p").Eq(0).Text()
 	cover, _ := doc.Find("#fmimg>img").Eq(0).Attr("src")
@@ -116,13 +116,13 @@ func (parser *XbiqugeParser) ParserChapters(url string, bookId string) ([]entity
 		fmt.Println("Chapter TIME OUT" + url)
 		return []entitys.Chapter{}, reqErr
 	}
-	//defer body.Close()
+	defer body.Close()
 	doc, err := goquery.NewDocumentFromReader(body)
 	if err != nil {
 		fmt.Println("Chapter BAN TIME OUT" + url)
 		return []entitys.Chapter{}, err
 	}
-	var ChapterList []entitys.Chapter
+	ChapterList := make([]entitys.Chapter, 0)
 	doc.Find("#list dl dd>a").Each(func(i int, s *goquery.Selection) {
 		link, _ := s.Attr("href")
 		//fmt.Printf("title %s link : %s \n",s.Text(), link)
@@ -136,7 +136,7 @@ func (parser *XbiqugeParser) ParserChapters(url string, bookId string) ([]entity
 	return ChapterList, nil
 }
 
-func  (parser *XbiqugeParser) ParserChapterContents(url string) (string, error)  {
+func (parser *XbiqugeParser) ParserChapterContents(url string) (string, error) {
 	//yd_text2
 	body, reqErr := parser.Request(url)
 	defer body.Close()

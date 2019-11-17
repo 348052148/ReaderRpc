@@ -129,14 +129,14 @@ func (parser *ZaduParser) ParserChapters(url string, bookId string) ([]entitys.C
 		fmt.Println("Chapter TIME OUT" + url)
 		return []entitys.Chapter{}, reqErr
 	}
-	//defer body.Close()
+	defer body.Close()
 	bytes := transform.NewReader(body, simplifiedchinese.GBK.NewDecoder())
 	doc, err := goquery.NewDocumentFromReader(bytes)
 	if err != nil {
 		fmt.Println("Chapter BAN TIME OUT" + url)
 		return []entitys.Chapter{}, err
 	}
-	var ChapterList []entitys.Chapter
+	ChapterList := make([]entitys.Chapter, 0)
 	doc.Find(".mulu ul li>a").Each(func(i int, s *goquery.Selection) {
 		link, _ := s.Attr("href")
 		//fmt.Printf("title %s link : %s \n",s.Text(), link)
