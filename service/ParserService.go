@@ -47,6 +47,8 @@ func (parserService *ParserService)BuilderParser(flag string) parser.Parser  {
 		parserEngin = parser.NewZaduParser()
 	}else if flag == "xbiquge" {
 		parserEngin = parser.NewXbiqugeParser()
+	}else if flag == "17k" {
+		parserEngin = parser.NewK17Parser()
 	}
 	return parserEngin
 }
