@@ -131,15 +131,12 @@ func (parser *K17Parser) ParserChapters(url string, bookId string) ([]entitys.Ch
 	doc.Find(".List .Volume>dd>a").Each(func(i int, s *goquery.Selection) {
 		link, _ := s.Attr("href")
 		//fmt.Printf("title %s link : %s \n",s.Text(), link)
-		index := i - 9
-		if index >= 0 {
-			ChapterList = append(ChapterList, entitys.Chapter{
-				BookId:      bookId,
-				Title:       strings.TrimSpace(s.Text()),
-				Index:       index,
-				ContentLink: "https://www.17k.com" + link,
-			})
-		}
+		ChapterList = append(ChapterList, entitys.Chapter{
+			BookId:      bookId,
+			Title:       strings.TrimSpace(s.Text()),
+			Index:       i,
+			ContentLink: "https://www.17k.com" + link,
+		})
 	})
 	return ChapterList, nil
 }

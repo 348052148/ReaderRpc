@@ -28,11 +28,11 @@ func (parser *QuanwenParser) SetLinkSet(linkSet *msg.LinkSet) {
 }
 
 func (parser *QuanwenParser) Request(url string) (io.ReadCloser, error) {
-	transport := &http.Transport{
-		Proxy: func(request *http.Request) (*urls.URL, error) {
-			return urls.Parse("http://49.67.191.154:9999")
-		}}
-	client := http.Client{Timeout: time.Second * 10, Transport: transport}
+	//transport := &http.Transport{
+	//	Proxy: func(request *http.Request) (*urls.URL, error) {
+	//		return urls.Parse("http://58.218.214.165:3487")
+	//	}}
+	client := http.Client{Timeout: time.Second * 10}
 	request, _ := http.NewRequest("GET", url, nil)
 	request.Header.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36")
 	request.Header.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3")
