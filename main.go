@@ -56,7 +56,7 @@ func RegisterService(address string, etcdAddress string) {
 		panic(err)
 	}
 	//创建租约
-	if leaseRes, err := client.Grant(client.Ctx(), 20); err != nil {
+	if leaseRes, err := client.Grant(client.Ctx(), 10); err != nil {
 		panic(err)
 	} else {
 		if leaseKeepAliveResp, err := client.KeepAlive(client.Ctx(), leaseRes.ID); err != nil {
