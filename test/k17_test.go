@@ -20,7 +20,7 @@ func TestK17ParserBookInfo(t *testing.T)  {
 
 func TestK17ParserBookChapters(t *testing.T)  {
 	parser := parser2.NewK17Parser()
-	chapters,_ :=parser.ParserChapters("https://www.17k.com/list/3051176.html", "1234")
+	chapters,_ :=parser.ParserChapters("https://www.17k.com/list/2681541.html", "1234")
 	t.Logf("%v", chapters)
 }
 

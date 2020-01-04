@@ -59,7 +59,8 @@ func TestParserChapterContents(t *testing.T)  {
 
 func TestParserQuanwenContents(t *testing.T)  {
 	quanWenParser := &parser.QuanwenParser{}
-	c,_:=quanWenParser.ParserChapterContents("http://www.quanshuwang.com/book/136/136668/36413373.html")
+	//c,_:=quanWenParser.TransformQuanWenMobileUrl("http://www.quanshuwang.com/book/20/20425/8568168.html")
+	c,_:=quanWenParser.ParserChapterContents("http://www.quanshuwang.com/book/20/20425/8568168.html")
 	fmt.Println(c)
 }
 

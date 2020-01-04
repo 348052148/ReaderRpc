@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"ReadRpc/entitys"
 	"strings"
+	url2 "net/url"
 )
 
 type QuanwenParser struct {
@@ -188,7 +189,21 @@ func (parser *QuanwenParser) ParserSearchBooks(url string) ([]entitys.BookInfo, 
 	return BookList, nil
 }
 
+func (parser *QuanwenParser) TransformQuanWenMobileUrl(url string) (string, error) {
+	URL, err := url2.Parse(url)
+	if err != nil {
+		return "", err
+	}
+	URL.Host = "m.quanshuwang.com"
+	URL.Path = strings.Replace(URL.Path, "book", "mbook", 1)
+	return URL.String(), nil
+}
+
 func (parser *QuanwenParser) ParserChapterContents(url string) (string, error) {
+	url, err := parser.TransformQuanWenMobileUrl(url)
+	if err != nil {
+		return "", err
+	}
 	body, reqErr := parser.Request(url)
 	if reqErr != nil {
 		fmt.Println("Chapter TIME OUT" + url)
@@ -201,6 +216,7 @@ func (parser *QuanwenParser) ParserChapterContents(url string) (string, error) {
 		return "", err
 	}
 	defer body.Close()
-	contents := doc.Find(".bookInfo .mainContenr").Text()
+	//contents := doc.Find(".bookInfo .mainContenr").Text()  网页版解析
+	contents := doc.Find("#htmlContent").Text() //手机端解析
 	return contents, nil
 }
