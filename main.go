@@ -25,8 +25,8 @@ func main() {
 	//设置日志目录
 	logs.Init(*logPath)
 	//地址
-	address := (*host) +":" + (*port)
-	lis, err := net.Listen("tcp", address)  //监听所有网卡8028端口的TCP连接
+	address := (*host) + ":" + (*port)
+	lis, err := net.Listen("tcp", address) //监听所有网卡8028端口的TCP连接
 	if err != nil {
 		log.Fatalf("监听失败: %v", err)
 	}
@@ -40,23 +40,46 @@ func main() {
 	RegisterService(address, *etcdAddress)
 	// 将监听交给gRPC服务处理
 	err = rpcServer.Serve(lis)
-	if  err != nil {
+	if err != nil {
 		log.Fatalf("failed to serve: %v", err)
 	}
 }
+
 //注册服务
-func RegisterService(address string, etcdAddress string)  {
-	client,err :=clientv3.New(clientv3.Config{
-		Context:context.Background(),
-		Endpoints:[]string{etcdAddress},
-		DialTimeout:time.Second * 5,
+func RegisterService(address string, etcdAddress string) {
+	client, err := clientv3.New(clientv3.Config{
+		Context:     context.Background(),
+		Endpoints:   []string{etcdAddress},
+		DialTimeout: time.Second * 5,
 	})
 	if err != nil {
 		panic(err)
 	}
-	res, err := client.Put(client.Ctx(), "go-service/"+address, address)
-	if err != nil {
+	//创建租约
+	if leaseRes, err := client.Grant(client.Ctx(), 20); err != nil {
 		panic(err)
+	} else {
+		if leaseKeepAliveResp, err := client.KeepAlive(client.Ctx(), leaseRes.ID); err != nil {
+			panic(err)
+		} else {
+			go func() {
+				for {
+					select {
+					case keepResp := <-leaseKeepAliveResp:
+						if keepResp == nil {
+							fmt.Println("租约失效了")
+							break
+						} else {
+							fmt.Println("recv-time:", keepResp.TTL)
+						}
+					}
+				}
+			}()
+		}
+		res, err := client.Put(client.Ctx(), "go-service/"+address, address, clientv3.WithLease(leaseRes.ID))
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("register Success:", res)
 	}
-	fmt.Println("register Success:",res)
 }
